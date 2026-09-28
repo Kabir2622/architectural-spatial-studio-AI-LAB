@@ -1,193 +1,261 @@
 {
   "faucets": [
     {
-      "id": "K-77980-4-BL",
-      "name": "Components Tall Basin Faucet",
-      "price": 280,
+      "id": "K-14402-4A-BL",
+      "name": "Kohler Purist Single-Handle Bathroom Faucet",
+      "price": 435,
       "style": "Minimalist Modern",
       "finish": "Matte Black",
       "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 6, "depth": 7 },
+      "footprint_in": { "width": 2.25, "depth": 5.5 },
       "image_url": "/images/faucet1.png",
-      "features": ["WaterSense certified", "Single-handle temperature control", "Ceramic disc valving"]
+      "features": [
+        "Architectural form with sensual design lines",
+        "Single lever handle for precise control",
+        "Water-saving low-flow aerator"
+      ]
     },
     {
-      "id": "K-73060-4-CP",
-      "name": "Composed Single-Handle Bathroom Faucet",
-      "price": 380,
+      "id": "K-73159IN-7-CP",
+      "name": "Kohler Composed Tall Single-Handle Vessel Faucet",
+      "price": 480,
       "style": "Minimalist Modern",
       "finish": "Polished Chrome",
       "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 5, "depth": 6.5 },
+      "footprint_in": { "width": 2.0, "depth": 6.8 },
       "image_url": "/images/faucet2.png",
-      "features": ["Ultra-sleek profile", "Solid brass construction", "Corrosion-resistant finish"]
+      "features": [
+        "Timeless understated minimalist profile",
+        "Tall cylindrical spout tailored for vessel sinks",
+        "Solid brass construction for lasting durability"
+      ]
     },
     {
-      "id": "K-14406-4-BGD",
-      "name": "Purist Widespread Bathroom Sink Faucet",
-      "price": 620,
-      "style": "Minimalist Modern",
-      "finish": "Brushed Moderne Brass",
+      "id": "K-72759-BN",
+      "name": "Kohler Artifacts Widespread Bathroom Faucet",
+      "price": 775,
+      "style": "Classic Luxury",
+      "finish": "Vibrant Brushed Nickel",
       "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 8, "depth": 6 },
+      "footprint_in": { "width": 8.0, "depth": 5.5 },
       "image_url": "/images/faucet3.png",
-      "features": ["Low gooseneck spout", "Dual lever handles", "KOHLER ceramic disc valves"]
+      "features": [
+        "Victorian turn-of-the-century heritage charm",
+        "Artisanal widespread column spout design",
+        "UltraGlide leak-free ceramic disc valves"
+      ]
     },
     {
-      "id": "K-30282-4-2MB",
-      "name": "Occasion Widespread Lavatory Faucet",
-      "price": 790,
-      "style": "Classic Luxury",
-      "finish": "Brushed Brass",
+      "id": "K-23472IN-4-CP",
+      "name": "Kohler Parallel Single-Handle Bathroom Faucet",
+      "price": 215,
+      "style": "Japanese Zen",
+      "finish": "Polished Chrome",
       "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 8.5, "depth": 6.5 },
+      "footprint_in": { "width": 2.1, "depth": 5.25 },
       "image_url": "/images/faucet4.png",
-      "features": ["Pentagonal faceted design", "Solid metal construction", "Art Deco aesthetic"]
+      "features": [
+        "Harmonious blend of circular and square geometry",
+        "Soft aerated splash-free stream",
+        "Pre-attached flexible supply lines"
+      ]
     },
     {
-      "id": "K-10577-4-BV",
-      "name": "Artifacts Gentleman's Basin Faucet",
-      "price": 890,
-      "style": "Classic Luxury",
-      "finish": "Brushed Bronze",
-      "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 7, "depth": 7.5 },
-      "image_url": "/images/faucet5.png",
-      "features": ["Vintage heritage styling", "Extended spout height", "PVD finish resists tarnishing"]
-    },
-    {
-      "id": "K-97345-4-BL",
-      "name": "Avid Wall-Mount Lavatory Faucet",
-      "price": 540,
-      "style": "Japanese Zen",
-      "finish": "Matte Black",
-      "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 7, "depth": 8.5 },
-      "image_url": "/images/faucet6.png",
-      "features": ["Wall-mount space saver", "Fluid organic spout", "Laminar stream water flow"]
-    },
-    {
-      "id": "K-22022-4-TT",
-      "name": "Parallel Monobloc Basin Faucet",
-      "price": 310,
-      "style": "Japanese Zen",
-      "finish": "Titanium",
-      "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 5.5, "depth": 6 },
-      "image_url": "/images/faucet7.png",
-      "features": ["Controlled angular geometry", "Soft aerated flow", "Pre-attached flexible supply lines"]
-    },
-    {
-      "id": "K-77974-4-BL",
-      "name": "Components Industrial Tube Spout",
-      "price": 460,
-      "style": "Industrial Chic",
-      "finish": "Matte Black",
-      "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 6, "depth": 7 },
-      "image_url": "/images/faucet8.png",
-      "features": ["Machined industrial knurling", "Dual rocker levers", "Lifetime brass reliability"]
-    },
-    {
-      "id": "K-23255-4-2MB",
-      "name": "Guilford Exposed Pipe Lavatory Faucet",
-      "price": 680,
-      "style": "Industrial Chic",
-      "finish": "Brushed Moderne Brass",
-      "flow_rate": "1.2 GPM",
-      "footprint_in": { "width": 7.5, "depth": 8 },
-      "image_url": "/images/faucet9.png",
-      "features": ["Factory-inspired conduit styling", "Cross handles", "Ultra-durable ceramic valves"]
-    },
-    {
-      "id": "K-28156-4-SN",
-      "name": "Statement Luxury Architectural Mixer",
-      "price": 1250,
+      "id": "K-27485IN-4-CP",
+      "name": "Kohler Fore Line Single-Handle Bathroom Faucet",
+      "price": 75,
       "style": "Minimalist Modern",
-      "finish": "Vibrant Polished Nickel",
-      "flow_rate": "1.0 GPM",
-      "footprint_in": { "width": 6.5, "depth": 7 },
+      "finish": "Polished Chrome",
+      "flow_rate": "1.5 GPM",
+      "footprint_in": { "width": 1.8, "depth": 4.8 },
+      "image_url": "/images/faucet5.png",
+      "features": [
+        "Refined minimalist modern silhouette",
+        "Budget-friendly value entry point",
+        "Effortless single-lever water control"
+      ]
+    },
+    {
+      "id": "K-23967IN-4ND-CP",
+      "name": "Kohler Vive Tall Single-Handle Bathroom Faucet",
+      "price": 150,
+      "style": "Minimalist Modern",
+      "finish": "Polished Chrome",
+      "flow_rate": "1.2 GPM",
+      "footprint_in": { "width": 2.1, "depth": 6.2 },
+      "image_url": "/images/faucet6.png",
+      "features": [
+        "Playful, gently narrowing ergonomic form",
+        "Tall profile suited for vessel basins",
+        "Smooth fluid water volume control"
+      ]
+    },
+    {
+      "id": "K-14660-4-CP",
+      "name": "Kohler Loure Single-Handle Bathroom Faucet",
+      "price": 725,
+      "style": "Minimalist Modern",
+      "finish": "Polished Chrome",
+      "flow_rate": "1.2 GPM",
+      "footprint_in": { "width": 2.0, "depth": 5.25 },
+      "image_url": "/images/faucet7.png",
+      "features": [
+        "Waterfall-inspired serene water delivery",
+        "Sleek contemporary profile",
+        "Ceramic disc valving for lifetime performance"
+      ]
+    },
+    {
+      "id": "K-393-N4-CP",
+      "name": "Kohler Devonshire Centerset Bathroom Faucet",
+      "price": 220,
+      "style": "Classic Luxury",
+      "finish": "Polished Chrome",
+      "flow_rate": "1.2 GPM",
+      "footprint_in": { "width": 6.0, "depth": 4.88 },
+      "image_url": "/images/faucet8.png",
+      "features": [
+        "Old-world elegance with classic curves",
+        "Compact 4-inch centerset configuration",
+        "Scratch- and tarnish-resistant finish"
+      ]
+    },
+    {
+      "id": "K-72288IN-4-CP",
+      "name": "Kohler Aleo Single-Control Pillar Faucet",
+      "price": 60,
+      "style": "Minimalist Modern",
+      "finish": "Polished Chrome",
+      "flow_rate": "1.5 GPM",
+      "footprint_in": { "width": 1.8, "depth": 4.5 },
+      "image_url": "/images/faucet9.png",
+      "features": [
+        "Flat surface handle creating clean lines",
+        "Essential simplicity for modern spaces",
+        "Durable polished metal construction"
+      ]
+    },
+    {
+      "id": "K-77958-4-BL",
+      "name": "Kohler Components Widespread Bathroom Faucet",
+      "price": 585,
+      "style": "Industrial Chic",
+      "finish": "Matte Black",
+      "flow_rate": "1.2 GPM",
+      "footprint_in": { "width": 8.0, "depth": 6.1 },
       "image_url": "/images/faucet10.png",
-      "features": ["Flagship Kohler Statement collection", "Solid forged billet brass", "Precision laminar water stream"]
+      "features": [
+        "Stark industrial angles and controlled forms",
+        "Dual lever handles with precise quarter-turn control",
+        "Ultra-durable matte black powder coating"
+      ]
     }
   ],
   "toilets": [
     {
       "id": "K-3999-0",
-      "name": "Highline Classic Two-Piece Toilet",
+      "name": "Highline Comfort Height Two-Piece Toilet",
       "price": 320,
       "style": "Classic Luxury",
       "finish": "White Porcelain",
       "flow_rate": "1.28 GPF",
       "footprint_in": { "width": 18, "depth": 29 },
       "image_url": "/images/toilet1.png",
-      "features": ["Class Five flushing technology", "Comfort Height seating", "Standard 12-inch rough-in"]
+      "features": [
+        "Class Five flushing power for clog-free performance",
+        "Comfort Height chair-style seating position",
+        "Standard 12-inch rough-in with two-piece design"
+      ]
     },
     {
       "id": "K-3810-0",
-      "name": "Santa Rosa Compact Elongated Toilet",
+      "name": "Santa Rosa Compact Elongated One-Piece Toilet",
       "price": 450,
       "style": "Minimalist Modern",
       "finish": "White Porcelain",
       "flow_rate": "1.28 GPF",
       "footprint_in": { "width": 16.5, "depth": 27.5 },
       "image_url": "/images/toilet2.png",
-      "features": ["One-piece seamless design", "AquaPiston flush canister", "Compact elongated bowl"]
+      "features": [
+        "Seamless one-piece design for easy cleaning",
+        "Revolution 360 swirl flushing technology",
+        "Compact elongated bowl fits round-front footprint"
+      ]
     },
     {
       "id": "K-6355-0",
-      "name": "Persuade Dual-Flush Curated Suite",
+      "name": "Persuade Curated Dual-Flush Skirted Toilet",
       "price": 590,
       "style": "Minimalist Modern",
       "finish": "White Porcelain",
       "flow_rate": "0.8 / 1.6 GPF",
       "footprint_in": { "width": 14.5, "depth": 28 },
       "image_url": "/images/toilet3.png",
-      "features": ["Two-button dual flushing", "Full skirted trapway", "Quiet-Close seat"]
+      "features": [
+        "Two-button top-mount dual flushing mechanism",
+        "Full architectural skirted trapway eliminates dust traps",
+        "Quiet-Close seat prevents sudden slamming"
+      ]
     },
     {
       "id": "K-4007-0",
-      "name": "San Souci Low-Profile Toilet",
+      "name": "San Souci Low-Profile One-Piece Toilet",
       "price": 780,
       "style": "Japanese Zen",
       "finish": "White Porcelain",
       "flow_rate": "1.28 GPF",
       "footprint_in": { "width": 16, "depth": 27.5 },
       "image_url": "/images/toilet4.png",
-      "features": ["Ultra-sleek low tank", "Single-piece construction", "Revolution 360 swirl flush"]
+      "features": [
+        "Low-profile integrated tank and bowl silhouette",
+        "AquaPiston canister flush delivers powerful bowl clearing",
+        "Concealed trapway design for sleek aesthetic"
+      ]
     },
     {
       "id": "K-18829-0",
-      "name": "Reach In-Wall Concealed Tank Toilet",
+      "name": "Reach Wall-Hung Concealed Tank Toilet",
       "price": 920,
       "style": "Japanese Zen",
       "finish": "Alpine White",
       "flow_rate": "0.8 / 1.6 GPF",
       "footprint_in": { "width": 15, "depth": 21 },
       "image_url": "/images/toilet5.png",
-      "features": ["Wall-hung floating footprint", "Concealed in-wall tank", "Easy-to-clean bowl clearance"]
+      "features": [
+        "Floating wall-hung installation saves up to 12 inches of floor space",
+        "Concealed in-wall carrier system with dual-flush plate",
+        "Elevated bowl clearance simplifies floor mopping"
+      ]
     },
     {
       "id": "K-3981-0",
-      "name": "Tresham Architectural Staged Toilet",
+      "name": "Tresham Comfort Height Two-Piece Toilet",
       "price": 640,
       "style": "Classic Luxury",
       "finish": "White Porcelain",
       "flow_rate": "1.28 GPF",
       "footprint_in": { "width": 17.5, "depth": 29 },
       "image_url": "/images/toilet6.png",
-      "features": ["Neo-traditional fluted trim", "Comfort Height ergonomic seat", "AquaPiston power flush"]
+      "features": [
+        "Neo-traditional fluted trim inspired by Shaker design",
+        "Comfort Height seating makes sitting and standing easier",
+        "AquaPiston flushing engine for durable leak-free seal"
+      ]
     },
     {
       "id": "K-76301-0",
-      "name": "Betello Continuous Clean Skirted Toilet",
+      "name": "Betello ContinuousClean Skirted Toilet",
       "price": 860,
       "style": "Industrial Chic",
       "finish": "White Porcelain",
       "flow_rate": "1.28 GPF",
       "footprint_in": { "width": 16.5, "depth": 28.5 },
       "image_url": "/images/toilet7.png",
-      "features": ["ContinuousClean automatic sanitizing", "Full architectural skirt", "Revolution 360 swirl"]
+      "features": [
+        "ContinuousClean automatic bowl sanitizing dispenser",
+        "Revolution 360 swirl flushing action",
+        "Clean skirted base with covered mounting hardware"
+      ]
     },
     {
       "id": "K-5401-0",
@@ -198,7 +266,11 @@
       "flow_rate": "0.8 / 1.28 GPF",
       "footprint_in": { "width": 16, "depth": 26.5 },
       "image_url": "/images/toilet8.png",
-      "features": ["Hands-free lid open/close", "Integrated heated bidet wand", "UV light self-cleaning wand", "LED nightlight"]
+      "features": [
+        "Hands-free motion sensor lid open and close",
+        "Integrated stainless steel bidet wand with warm water spray",
+        "Automatic UV light wand sanitization and integrated LED nightlight"
+      ]
     },
     {
       "id": "K-77795-0",
@@ -209,344 +281,462 @@
       "flow_rate": "0.8 / 1.0 GPF",
       "footprint_in": { "width": 15.5, "depth": 26 },
       "image_url": "/images/toilet9.png",
-      "features": ["Electrolyzed water misting", "Customizable cleansing rhythms", "Sunrise Gold accent ring", "Remote touchscreen control"]
+      "features": [
+        "Electrolyzed water misting for hygienic bowl pre-rinsing",
+        "Customizable spray temperature, pressure, and pulsating rhythms",
+        "Sunrise Gold accent ring with full touchscreen remote control"
+      ]
     },
     {
-      "id": "K-8687-0",
-      "name": "Numi 2.0 Flagship Smart Toilet",
+      "id": "K-30754-0",
+      "name": "Numi 2.0 Flagship Intelligent Smart Toilet",
       "price": 5400,
       "style": "Minimalist Modern",
-      "finish": "Matte Black & Porcelain",
+      "finish": "Honed Black & White",
       "flow_rate": "0.6 / 1.0 GPF",
       "footprint_in": { "width": 16.5, "depth": 25.5 },
       "image_url": "/images/toilet10.png",
-      "features": ["Ambient mood lighting & surround sound", "Heated seat & foot warmers", "Alexa built-in", "Dynamic water saving"]
+      "features": [
+        "Dynamic ambient mood lighting and integrated Bluetooth speakers",
+        "Heated seat, warm-air dryer, and built-in foot warmers",
+        "Built-in Amazon Alexa voice assistant with dynamic water-saving flush"
+      ]
     }
   ],
   "showers": [
     {
-      "id": "K-10282-AK-CP",
-      "name": "Forte Multifunction Single Showerhead",
-      "price": 140,
-      "style": "Classic Luxury",
-      "finish": "Polished Chrome",
+      "id": "K-28238-CP",
+      "name": "Moxie Bluetooth Speaker Showerhead",
+      "price": 180,
+      "style": "Minimalist Modern",
+      "finish": "Matte Black",
       "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 32, "depth": 32 },
+      "footprint_in": { "width": 5, "depth": 5 },
       "image_url": "/images/shower1.png",
-      "features": ["3 distinct spray modes", "Katalyst air-induction technology", "MasterClean nozzles resist buildup"]
+      "features": [
+        "Integrated Harman Kardon Bluetooth wireless speaker",
+        "Magnetic quick-release waterproof speaker dock",
+        "Katalyst air-induction full coverage spray"
+      ]
     },
     {
-      "id": "K-72419-BL",
-      "name": "Awaken Geometric Handshower Kit",
-      "price": 260,
+      "id": "K-26290-CP",
+      "name": "Statement Oval Three-Function Showerhead",
+      "price": 175,
       "style": "Minimalist Modern",
-      "finish": "Matte Black",
-      "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 36, "depth": 36 },
-      "image_url": "/images/shower2.png",
-      "features": ["Geometric angular sprayface", "Integrated 24-inch slidebar", "Smooth 60-inch flexible hose"]
-    },
-    {
-      "id": "K-13688-2MB",
-      "name": "Contemporary 8-Inch Square Rainhead",
-      "price": 490,
-      "style": "Minimalist Modern",
-      "finish": "Brushed Moderne Brass",
-      "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 36, "depth": 36 },
-      "image_url": "/images/shower3.png",
-      "features": ["Katalyst air-induction rain technology", "Low-profile canopy", "MasterClean silicone face"]
-    },
-    {
-      "id": "K-76472-BL",
-      "name": "HydroRail-R Shower Column System",
-      "price": 680,
-      "style": "Industrial Chic",
-      "finish": "Matte Black",
-      "flow_rate": "2.0 GPM",
-      "footprint_in": { "width": 38, "depth": 38 },
-      "image_url": "/images/shower4.png",
-      "features": ["Convert standard valve to rain shower", "Dual rainhead and handshower diverter", "No behind-the-wall replumbing needed"]
-    },
-    {
-      "id": "K-99105-BGD",
-      "name": "Artifacts Traditional Victorian Shower Trim",
-      "price": 820,
-      "style": "Classic Luxury",
-      "finish": "Brushed Moderne Brass",
-      "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 40, "depth": 40 },
-      "image_url": "/images/shower5.png",
-      "features": ["Rite-Temp pressure-balancing valve trim", "Heritage cross handle", "PVD corrosion-proof luster"]
-    },
-    {
-      "id": "K-26299-TT",
-      "name": "Statement Round 12-Inch Low Profile Rainhead",
-      "price": 950,
-      "style": "Japanese Zen",
-      "finish": "Titanium",
-      "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 42, "depth": 42 },
-      "image_url": "/images/shower6.png",
-      "features": ["Deep massage and Cloud spray modes", "Katalyst infused micro-droplets", "Engineered sound dampening"]
-    },
-    {
-      "id": "K-76475-CP",
-      "name": "HydroRail-S Industrial Exposed Shower Suite",
-      "price": 580,
-      "style": "Industrial Chic",
       "finish": "Polished Chrome",
-      "flow_rate": "1.75 GPM",
-      "footprint_in": { "width": 36, "depth": 36 },
-      "image_url": "/images/shower7.png",
-      "features": ["Factory raw-pipe exposed column", "Side-mount two-way diverter", "Solid architectural brass"]
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 6.5, "depth": 6.5 },
+      "image_url": "/images/shower2.png",
+      "features": [
+        "Three spray modes: Full Coverage, Cloud Spray, Deep Massage",
+        "Katalyst air-induction technology for large water drops",
+        "Intuitive push-button spray mode selection"
+      ]
     },
     {
-      "id": "K-26344-BL",
-      "name": "Statement Oval Thermostatic Multi-Outlet Suite",
-      "price": 1450,
+      "id": "K-965-AK-CP",
+      "name": "Purist Single-Function Katalyst Showerhead",
+      "price": 120,
+      "style": "Minimalist Modern",
+      "finish": "Polished Chrome",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 5.5, "depth": 5.5 },
+      "image_url": "/images/shower3.png",
+      "features": [
+        "Clean geometric lines from the Purist collection",
+        "Katalyst air-induction spray delivers drenching flow",
+        "MasterClean sprayface nozzles prevent mineral buildup"
+      ]
+    },
+    {
+      "id": "K-72773-2MB",
+      "name": "Artifacts Single-Function Heritage Showerhead",
+      "price": 165,
+      "style": "Classic Luxury",
+      "finish": "Vibrant Brushed Moderne Brass",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 6, "depth": 6 },
+      "image_url": "/images/shower4.png",
+      "features": [
+        "Turn-of-the-century heritage Victorian design",
+        "Katalyst air-induction technology for voluptuous spray",
+        "Solid brass construction with tarnish-resistant finish"
+      ]
+    },
+    {
+      "id": "K-13688-CP",
+      "name": "Contemporary 8-Inch Round Rainhead",
+      "price": 320,
+      "style": "Minimalist Modern",
+      "finish": "Polished Chrome",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 8, "depth": 8 },
+      "image_url": "/images/shower5.png",
+      "features": [
+        "Low-profile thin-edge circular rainhead profile",
+        "Katalyst air-induction delivers immersive drenching rain",
+        "Auto-draining sprayface minimizes post-shower dripping"
+      ]
+    },
+    {
+      "id": "K-76465-CP",
+      "name": "Awaken Multi-Function Spray Showerhead",
+      "price": 65,
       "style": "Minimalist Modern",
       "finish": "Matte Black",
       "flow_rate": "2.0 GPM",
-      "footprint_in": { "width": 44, "depth": 44 },
-      "image_url": "/images/shower8.png",
-      "features": ["Dual outlet thermostatic precision control", "Anti-scald safety lock", "Full bodily immersion coverage"]
+      "footprint_in": { "width": 4.5, "depth": 4.5 },
+      "image_url": "/images/shower6.png",
+      "features": [
+        "Three spray experiences: Wide Coverage, Intense Drenching, Targeted",
+        "Ergonomic design for effortless mode switching",
+        "WaterSense certified efficient water delivery"
+      ]
     },
     {
-      "id": "K-26346-2MB",
-      "name": "Anthem Digital 2-Port Thermostatic Shower Valve",
-      "price": 2200,
-      "style": "Japanese Zen",
-      "finish": "Brushed Moderne Brass",
-      "flow_rate": "2.5 GPM Max",
-      "footprint_in": { "width": 48, "depth": 48 },
-      "image_url": "/images/shower9.png",
-      "features": ["Digital capacitive touchscreen interface", "Independent spray and temperature tuning", "Presets for family members"]
-    },
-    {
-      "id": "K-ANTHEM-4P",
-      "name": "Anthem Luxury 4-Port Digital Spa Experience",
-      "price": 3800,
+      "id": "K-22169-BN",
+      "name": "Statement 12-Inch Barrel Rain Canopy",
+      "price": 490,
       "style": "Classic Luxury",
-      "finish": "Vibrant Titanium",
-      "flow_rate": "Smart Eco Regulated",
-      "footprint_in": { "width": 54, "depth": 54 },
+      "finish": "Vibrant Brushed Nickel",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 12, "depth": 12 },
+      "image_url": "/images/shower7.png",
+      "features": [
+        "Expansive 12-inch wide rain canopy coverage",
+        "Air-infused water droplets for luxurious soaking shower",
+        "Solid forged brass construction with architectural rim detail"
+      ]
+    },
+    {
+      "id": "K-15996-BL",
+      "name": "Shift Ellipse Multi-Function Handshower",
+      "price": 140,
+      "style": "Japanese Zen",
+      "finish": "Matte Black",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 2, "depth": 9.5 },
+      "image_url": "/images/shower8.png",
+      "features": [
+        "Sleek elliptical wand design for ergonomic comfort",
+        "Dual spray functions: full coverage and targeted massage",
+        "MasterClean sprayface resists hard water buildup"
+      ]
+    },
+    {
+      "id": "K-23219-BL",
+      "name": "HydroRail-S Architectural Shower Column",
+      "price": 450,
+      "style": "Industrial Chic",
+      "finish": "Matte Black",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 3, "depth": 18 },
+      "image_url": "/images/shower9.png",
+      "features": [
+        "Exposed pipe architectural shower column design",
+        "Integrated base diverter toggles between overhead and handshower",
+        "Converts standard showerhead setup without wall demolition"
+      ]
+    },
+    {
+      "id": "K-26346-NA",
+      "name": "Anthem Smart Digital Shower Controller",
+      "price": 1200,
+      "style": "Minimalist Modern",
+      "finish": "Black Glass Panel",
+      "flow_rate": "Multi-Outlet Control",
+      "footprint_in": { "width": 7.5, "depth": 5 },
       "image_url": "/images/shower10.png",
-      "features": ["Controls 4 showerheads/body sprays independently", "App-connected Kohler Konnect", "Hydrotherapy sequencing"]
+      "features": [
+        "Digital touchscreen control for up to 6 shower outlets",
+        "Independent temperature and flow control for every zone",
+        "Pre-programmed hydrotherapy spray routines & mobile app sync"
+      ]
     }
   ],
   "vanities": [
     {
-      "id": "K-33523-ASB",
-      "name": "Harken 24-Inch Single Bathroom Vanity",
-      "price": 420,
+      "id": "K-99522-1WA",
+      "name": "Damask 30-Inch Single Bathroom Vanity",
+      "price": 850,
       "style": "Classic Luxury",
-      "finish": "Cast Iron Grey",
-      "footprint_in": { "width": 24, "depth": 19 },
+      "finish": "Felt Grey",
+      "footprint_in": { "width": 30, "depth": 21.8 },
       "image_url": "/images/vanity1.png",
-      "features": ["Glazed ceramic integrated basin", "Slow-close cabinet hinges", "Ideal for powder rooms"]
+      "features": [
+        "Inspired by traditional French quarter-sawn woodwork",
+        "Slow-close drawers with full-extension glides",
+        "Catalyzed conversion varnish resists bathroom humidity"
+      ]
     },
     {
-      "id": "K-28956-0",
-      "name": "Southerk 30-Inch Ceramic Top Vanity",
-      "price": 680,
-      "style": "Minimalist Modern",
-      "finish": "Matte White",
-      "footprint_in": { "width": 30, "depth": 20 },
-      "image_url": "/images/vanity2.png",
-      "features": ["Seamless vitreous china basin", "Dual storage drawers", "Clean architectural face"]
-    },
-    {
-      "id": "K-99505-LG",
-      "name": "Jacquard 36-Inch Wall-Hung Floating Vanity",
-      "price": 950,
-      "style": "Minimalist Modern",
-      "finish": "Flannel Grey",
-      "footprint_in": { "width": 36, "depth": 21.5 },
-      "image_url": "/images/vanity3.png",
-      "features": ["Floating wall-mount creates spatial volume", "Full-extension dovetail drawers", "Catalyzed polyurethane finish"]
-    },
-    {
-      "id": "K-99516-NW",
-      "name": "Damask 36-Inch Freestanding Classic Vanity",
-      "price": 1280,
-      "style": "Classic Luxury",
-      "finish": "White Oak",
-      "footprint_in": { "width": 36, "depth": 22 },
-      "image_url": "/images/vanity4.png",
-      "features": ["Ornate traditional woodwork", "Carrara marble quartz slab option", "Brass pull handles"]
-    },
-    {
-      "id": "K-33527-BW",
-      "name": "Seer 30-Inch Japanese Minimalist Vanity",
-      "price": 820,
-      "style": "Japanese Zen",
-      "finish": "Natural Ash",
-      "footprint_in": { "width": 30, "depth": 21 },
-      "image_url": "/images/vanity5.png",
-      "features": ["Warm natural ash grain", "Open slatted bottom towel shelf", "Push-to-open soft close drawers"]
-    },
-    {
-      "id": "K-99522-WAL",
-      "name": "Jute 48-Inch Wall-Hung Single Vanity",
-      "price": 1650,
-      "style": "Japanese Zen",
-      "finish": "Muted Walnut",
-      "footprint_in": { "width": 48, "depth": 21.5 },
-      "image_url": "/images/vanity6.png",
-      "features": ["Mid-century floating silhouette", "Dual stacked drawers", "Internal electrical/USB outlets"]
-    },
-    {
-      "id": "K-33535-IMB",
-      "name": "Iron/Tones 36-Inch Steel Console Vanity",
+      "id": "K-99505-1WA",
+      "name": "Jacquard 36-Inch Single Bathroom Vanity",
       "price": 1100,
+      "style": "Classic Luxury",
+      "finish": "Claret Suede",
+      "footprint_in": { "width": 36, "depth": 21.8 },
+      "image_url": "/images/vanity2.png",
+      "features": [
+        "Traditional panel door detailing with brushed metal hardware",
+        "Adjustable internal shelves and door organizing splitters",
+        "Solid wood frame with moisture-resistant finish"
+      ]
+    },
+    {
+      "id": "K-99513-1WA",
+      "name": "Poplin 24-Inch Compact Bathroom Vanity",
+      "price": 650,
+      "style": "Minimalist Modern",
+      "finish": "Linen White",
+      "footprint_in": { "width": 24, "depth": 21.8 },
+      "image_url": "/images/vanity3.png",
+      "features": [
+        "Clean Shaker-inspired geometric lines",
+        "Compact footprint optimized for powder rooms and small baths",
+        "Integrated soft-close hinges and full-extension drawer"
+      ]
+    },
+    {
+      "id": "K-99557-SD",
+      "name": "Marabou 48-Inch Single Bathroom Vanity",
+      "price": 1450,
+      "style": "Minimalist Modern",
+      "finish": "White Oak",
+      "footprint_in": { "width": 48, "depth": 21.8 },
+      "image_url": "/images/vanity4.png",
+      "features": [
+        "Mid-century modern aesthetic with warm wood grain finish",
+        "Ample counter space with dual side storage drawers",
+        "Durable catalyzed finish resists moisture and stains"
+      ]
+    },
+    {
+      "id": "K-99541-R",
+      "name": "Jute 30-Inch Wall-Mount Floating Vanity",
+      "price": 980,
+      "style": "Japanese Zen",
+      "finish": "Walnut Flax",
+      "footprint_in": { "width": 30, "depth": 21.8 },
+      "image_url": "/images/vanity5.png",
+      "features": [
+        "Wall-hung floating mounting creates open floor perception",
+        "Natural wood grain texture inspired by organic Japanese design",
+        "Includes soft-close pull-out lap drawer and storage base"
+      ]
+    },
+    {
+      "id": "K-29263-BD1-DWG",
+      "name": "Charlemont 60 Bathroom Vanity Cabinet",
+      "price": 2200,
+      "style": "Minimalist Modern",
+      "finish": "Dark Warm Grey",
+      "footprint_in": { "width": 60, "depth": 21.8 },
+      "image_url": "/images/vanity6.png",
+      "features": [
+        "Double basin layout designed for master bathroom suites",
+        "Dual soft-close doors and four central extension drawers",
+        "Solid hardwood frame with moisture-proof protective seal"
+      ]
+    },
+    {
+      "id": "K-33545-ASB",
+      "name": "Southerk 36-Inch Vanity with Quartz Top",
+      "price": 1250,
       "style": "Industrial Chic",
-      "finish": "Matte Black Cast Iron",
+      "finish": "Matte Black",
       "footprint_in": { "width": 36, "depth": 22 },
       "image_url": "/images/vanity7.png",
-      "features": ["Steel tube frame construction", "Exposed plumbing visual design", "Enamelled cast-iron deck"]
+      "features": [
+        "Matte black metal frame with open slatted lower storage shelf",
+        "Pre-attached engineered quartz countertop and undermount sink",
+        "Industrial-inspired hardware and architectural metal trim"
+      ]
     },
     {
-      "id": "K-28958-IND",
-      "name": "Highland 48-Inch Industrial Double Vanity",
-      "price": 1950,
+      "id": "K-40640-BD1-WEK",
+      "name": "Kresla 48-Inch Freestanding Vanity",
+      "price": 1680,
       "style": "Industrial Chic",
-      "finish": "Distressed Industrial Oak",
+      "finish": "Distressed Grey Oak",
       "footprint_in": { "width": 48, "depth": 22 },
       "image_url": "/images/vanity8.png",
-      "features": ["Reclaimed look with black iron brackets", "Double under-mount sinks", "Central storage bank"]
+      "features": [
+        "Rustic industrial aesthetic with distressed wood finish",
+        "Includes vitreous china countertop and matching backsplash",
+        "Dual doors with interior electrical outlet and styling tool organizer"
+      ]
     },
     {
-      "id": "K-33540-SLT",
-      "name": "Poplin 60-Inch Master Double-Basin Vanity",
-      "price": 2850,
-      "style": "Minimalist Modern",
-      "finish": "Slate Grey",
-      "footprint_in": { "width": 60, "depth": 22 },
+      "id": "K-CM99539-BD1-1WM",
+      "name": "Tailored 24-Inch Wall-Mount Floating Vanity",
+      "price": 720,
+      "style": "Japanese Zen",
+      "finish": "Natural Oak",
+      "footprint_in": { "width": 24, "depth": 21.8 },
       "image_url": "/images/vanity9.png",
-      "features": ["Dual Silestone quartz basins", "4 soft-close storage drawers", "Adjustable internal organizers"]
+      "features": [
+        "Sleek wall-mounted design maximizes open floor space",
+        "Minimalist handle-free push-to-open drawer system",
+        "Eco-friendly natural oak veneer with clear protective coat"
+      ]
     },
     {
-      "id": "K-ARTIFACTS-72",
-      "name": "Artifacts 72-Inch Estate Master Suite Vanity",
-      "price": 4200,
+      "id": "K-39607-ASB-0",
+      "name": "Haddon 60-Inch Double Vanity with Marble Top",
+      "price": 2650,
       "style": "Classic Luxury",
-      "finish": "Hand-Carved Walnut & Calacatta",
-      "footprint_in": { "width": 72, "depth": 23 },
+      "finish": "Cashmere",
+      "footprint_in": { "width": 60, "depth": 22 },
       "image_url": "/images/vanity10.png",
-      "features": ["72-inch luxury master estate proportions", "Genuine Calacatta gold marble countertop", "Solid hardwood joinery with lifetime lacquer"]
+      "features": [
+        "Carrara marble countertop with dual undermount ceramic sinks",
+        "Eight full-extension drawers plus two spacious center cabinets",
+        "Hand-finished multi-step lacquer coating for lasting luxury"
+      ]
     }
   ],
   "bathtubs": [
     {
-      "id": "K-1123-0",
-      "name": "Archer 60\" x 32\" Alcove Soaking Bath",
-      "price": 720,
-      "style": "Minimalist Modern",
-      "finish": "White Acrylic",
-      "flow_rate": "57 Gal Capacity",
-      "footprint_in": { "width": 60, "depth": 32 },
-      "image_url": "/images/tub1.png",
-      "features": ["Comfort Depth design", "Slotted overflow for deep soaking", "Textured bottom surface"]
-    },
-    {
-      "id": "K-1946-0",
-      "name": "Archer 66\" x 32\" Deep Soaker Tub",
-      "price": 890,
-      "style": "Minimalist Modern",
-      "finish": "White Acrylic",
-      "flow_rate": "63 Gal Capacity",
-      "footprint_in": { "width": 66, "depth": 32 },
-      "image_url": "/images/tub2.png",
-      "features": ["Integral lumbar support", "Low step-over threshold", "High-gloss durable acrylic"]
-    },
-    {
-      "id": "K-8336-0",
-      "name": "Underscore 60\" x 30\" Minimalist Bath",
+      "id": "K-1130-0",
+      "name": "Underscore 60 x 32 Drop-In Soaking Bathtub",
       "price": 1050,
       "style": "Minimalist Modern",
-      "finish": "White Vitreous Acrylic",
-      "flow_rate": "68 Gal Capacity",
-      "footprint_in": { "width": 60, "depth": 30 },
+      "finish": "White Acrylic",
+      "footprint_in": { "width": 60, "depth": 32 },
+      "image_url": "/images/tub1.png",
+      "features": [
+        "Slotted overflow for deep soaking depth",
+        "Integral ergonomic lumbar support",
+        "Clean, crisp rectangular drop-in or alcove installation"
+      ]
+    },
+    {
+      "id": "K-6367-0",
+      "name": "Stargaze 72 x 36 Freestanding Fluted Bathtub",
+      "price": 3180,
+      "style": "Minimalist Modern",
+      "finish": "White Acrylic",
+      "footprint_in": { "width": 72, "depth": 36 },
+      "image_url": "/images/tub2.png",
+      "features": [
+        "Freestanding focal point with elegant fluted shroud",
+        "Dual-ended sloped lumbar support for two bathers",
+        "Generous 17-inch deep bathing basin"
+      ]
+    },
+    {
+      "id": "K-1123-LA-96",
+      "name": "Archer 60 x 32 Alcove Soaking Bathtub",
+      "price": 1135,
+      "style": "Classic Luxury",
+      "finish": "Biscuit",
+      "footprint_in": { "width": 60, "depth": 32 },
       "image_url": "/images/tub3.png",
-      "features": ["Crisp architectural lines", "Molded lumbar contour", "Slotted overflow drain included"]
+      "features": [
+        "Craftsman-inspired beveled edges and curved base",
+        "Low step-over height for easy accessibility",
+        "Integral apron and tile flange for alcove setup"
+      ]
     },
     {
-      "id": "K-8342-0",
-      "name": "Underscore 66\" Oval Freestanding Bath",
-      "price": 2400,
-      "style": "Minimalist Modern",
-      "finish": "Gloss White Cast Acrylic",
-      "flow_rate": "90 Gal Capacity",
-      "footprint_in": { "width": 66, "depth": 36 },
+      "id": "K-8332-0",
+      "name": "Memoirs 60 x 34 Lithocast Freestanding Bathtub",
+      "price": 6060,
+      "style": "Classic Luxury",
+      "finish": "Gloss White Lithocast Resin",
+      "footprint_in": { "width": 60, "depth": 34 },
       "image_url": "/images/tub4.png",
-      "features": ["Sculptural organic silhouette", "Center toe-tap drain", "Generous double-ended ergonomic backrests"]
+      "features": [
+        "Architectural crown molding detailing on outer rim",
+        "Solid stone-look Lithocast Gloss cast resin construction",
+        "Slotted overflow allows maximum water depth"
+      ]
     },
     {
-      "id": "K-2599-0",
-      "name": "Veil 65\" Ergonomic Freestanding Bath",
-      "price": 3800,
-      "style": "Minimalist Modern",
-      "finish": "Lithocast Cast Resin",
-      "flow_rate": "84 Gal Capacity",
-      "footprint_in": { "width": 65, "depth": 36 },
+      "id": "K-24002-W1-0",
+      "name": "Sunstruck 60 x 34 Oval Freestanding Bathtub",
+      "price": 2850,
+      "style": "Japanese Zen",
+      "finish": "White Gloss Acrylic",
+      "footprint_in": { "width": 66, "depth": 34 },
       "image_url": "/images/tub5.png",
-      "features": ["KOHLER Lithocast solid resin", "Organic flowing curves", "Integrated slotted overflow"]
+      "features": [
+        "Fluid organic oval silhouette for tranquil spaces",
+        "Seamless one-piece freestanding acrylic shell",
+        "Center toe-tap drain with integrated overflow"
+      ]
     },
     {
-      "id": "K-700-0",
-      "name": "Vintage 72\" Cast Iron Freestanding Bath",
-      "price": 3200,
-      "style": "Classic Luxury",
-      "finish": "Enameled Cast Iron",
-      "flow_rate": "80 Gal Capacity",
-      "footprint_in": { "width": 72, "depth": 42 },
+      "id": "K-20201-LA-0",
+      "name": "Underscore 60 x 30 Alcove Soaking Bathtub",
+      "price": 1080,
+      "style": "Minimalist Modern",
+      "finish": "White Acrylic",
+      "footprint_in": { "width": 60, "depth": 30 },
       "image_url": "/images/tub6.png",
-      "features": ["Heavy enameled cast iron heat retention", "Heritage roll-top rim", "Painted exterior finish options"]
+      "features": [
+        "Narrow 30-inch depth suited for compact modern alcoves",
+        "Integral tile flange prevents wall water seepage",
+        "Textured bottom surface for added underfoot traction"
+      ]
     },
     {
-      "id": "K-803-0",
-      "name": "Artifacts 66\" Cast Iron Roll-Top Bath",
-      "price": 4600,
+      "id": "K-722-0",
+      "name": "Memoirs 60 x 34 Cast Iron Alcove Bathtub",
+      "price": 2300,
       "style": "Classic Luxury",
-      "finish": "Iron Black Exterior / White Glaze",
-      "flow_rate": "92 Gal Capacity",
-      "footprint_in": { "width": 66, "depth": 33 },
+      "finish": "Enameled Cast Iron White",
+      "footprint_in": { "width": 60, "depth": 34 },
       "image_url": "/images/tub7.png",
-      "features": ["Artisanal antique revival", "Solid brass ball-and-claw feet options", "Superior lifetime heat retention"]
+      "features": [
+        "Ultra-durable KOHLER enameled cast iron retains heat",
+        "Safeguard slip-resistant surface finish",
+        "Classic architectural apron with molded trim"
+      ]
+    },
+    {
+      "id": "K-25831-0",
+      "name": "Avec 60 x 32 Bathtub",
+      "price": 800,
+      "style": "Japanese Zen",
+      "finish": "White Acrylic",
+      "footprint_in": { "width": 60, "depth": 32 },
+      "image_url": "/images/tub8.png",
+      "features": [
+        "Extra-deep basin design inspired by Japanese Ofuro tubs",
+        "Integrated seating ledge for relaxed upright immersion",
+        "Space-efficient footprint for meditative zen retreats"
+      ]
+    },
+    {
+      "id": "K-710-P5-0",
+      "name": "Iron Works 66 x 36 Clawfoot Cast Iron Bathtub",
+      "price": 4350,
+      "style": "Industrial Chic",
+      "finish": "Black Exterior with White Interior",
+      "footprint_in": { "width": 66, "depth": 36 },
+      "image_url": "/images/tub9.png",
+      "features": [
+        "Vintage clawfoot profile with exposed cast iron exterior",
+        "Heavy-duty enameled cast iron interior basin",
+        "Extravagant deep soaking capacity"
+      ]
     },
     {
       "id": "K-1800-0",
-      "name": "Ceric 65\" Fluted Freestanding Bath",
-      "price": 2850,
-      "style": "Japanese Zen",
-      "finish": "Satin White Lithocast",
-      "flow_rate": "78 Gal Capacity",
-      "footprint_in": { "width": 65, "depth": 31 },
-      "image_url": "/images/tub8.png",
-      "features": ["Deep Japanese soaking stance", "Warm velvet-touch Lithocast stone resin", "Center brass pop-up waste"]
-    },
-    {
-      "id": "K-21000-0",
-      "name": "Stillness Infinity Overflow Bath Experience",
-      "price": 6800,
-      "style": "Japanese Zen",
-      "finish": "Solid Cast Mineral Hinoki Edge",
-      "flow_rate": "Infinity Recirculating",
-      "footprint_in": { "width": 70, "depth": 48 },
-      "image_url": "/images/tub9.png",
-      "features": ["Full peripheral infinity rim overflow", "Essential oil fog and mist emitter", "Chromatherapy LED illumination"]
-    },
-    {
-      "id": "K-1834-0",
-      "name": "Iron Works Historic 66\" Console Bath",
-      "price": 2650,
+      "name": "Abrazo 66 x 31 Lithocast Freestanding Bathtub",
+      "price": 4200,
       "style": "Industrial Chic",
-      "finish": "Matte Black Raw Cast Iron",
-      "flow_rate": "82 Gal Capacity",
-      "footprint_in": { "width": 66, "depth": 34 },
+      "finish": "Honed Matte White Lithocast",
+      "footprint_in": { "width": 66, "depth": 31 },
       "image_url": "/images/tub10.png",
-      "features": ["Exposed industrial structural brackets", "Enamelled interior basin", "Heavyweight architectural anchor"]
+      "features": [
+        "Unique organic egg-shaped modern silhouette",
+        "Matte Lithocast solid surface material feels smooth like stone",
+        "Center drain with matching matte Lithocast drain cover"
+      ]
     }
   ]
 }
