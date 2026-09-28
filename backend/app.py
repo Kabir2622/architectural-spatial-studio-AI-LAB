@@ -375,7 +375,7 @@ RULES:
             raise ValueError("GEMINI_API_KEY not configured.")
         genai.configure(api_key=api_key)
         
-        model = genai.GenerativeModel("gemini-2.5-flash")
+        model = genai.GenerativeModel("gemini-3.8-flash")
         response = model.generate_content(
             refinement_prompt,
             generation_config={"response_mime_type": "application/json"}
