@@ -146,7 +146,7 @@ def get_llm_recommendation(filtered_candidates: dict, style: str, budget: float 
         msg = f"Aesthetic: {style}\nTarget Budget: ${budget}\nEco-Mode Active: {eco_mode}{eco_instruction}\nCandidates:\n{json.dumps(filtered_candidates, indent=2)}"
 
         res = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-3.8-flash",
             contents=msg,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction_text,
