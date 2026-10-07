@@ -1,6 +1,6 @@
 flask
 python-dotenv
-google-generativeai
+google-genai
 gunicorn
 flask-cors
 flask-Limiter

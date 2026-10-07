@@ -1,10 +1,23 @@
-# Python
-__pycache__/
-*.pyc
-venv/
-.env
-
-# Node (in case frontend uses it)
+# Dependencies & Node
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python Virtual Environments & Cache
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+$irtualenv/
+
+# Build & Vite Output
 dist/
+build/
+.vite/
+
+# OS & Environment Files
+.DS_Store
+Thumbs.db
+.env
 .env.local

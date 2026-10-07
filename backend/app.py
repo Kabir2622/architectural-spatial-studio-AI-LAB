@@ -3,6 +3,9 @@ import logging
 import os
 import sys
 import time
+import hashlib
+import math
+from functools import lru_cache
 from pathlib import Path
 
 # --- RENDER MODULE PATH FIX ---
@@ -29,7 +32,10 @@ env_path = Path(__file__).resolve().parent / ".env"
 logger.info(f"Loading environment from {env_path} (exists: {env_path.exists()})")
 load_dotenv(dotenv_path=env_path, override=True)
 
-from recommender import get_llm_recommendation
+from recommender import get_llm_recommendation, generate_json, DEFAULT_MODEL
+from response_cache import ResponseCache
+
+response_cache = ResponseCache()
 
 app = Flask(__name__)
 
@@ -44,14 +50,18 @@ limiter = Limiter(
     storage_uri="memory://"
 )
 
-# Initialize Redis Client for Token Caching
-try:
-    redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-    redis_client.ping()
-    logger.info("Successfully connected to Redis cache.")
-except Exception as e:
-    logger.warning(f"Redis connection failed. Running without cache: {e}")
-    redis_client = None
+# Local caching is always available. Connect to external Redis only when it is
+# configured, and lazily on the first request rather than delaying startup.
+redis_client = None
+if os.getenv("REDIS_URL"):
+    redis_client = redis.Redis.from_url(os.environ["REDIS_URL"], decode_responses=True,
+        socket_connect_timeout=0.25, socket_timeout=0.25, retry_on_timeout=False)
+
+
+@lru_cache(maxsize=4)
+def _read_catalog(path, modified):
+    with Path(path).open(encoding="utf-8") as catalog_file:
+        return json.load(catalog_file)
 
 
 def load_raw_catalog():
@@ -67,11 +77,9 @@ def load_raw_catalog():
     for p in possible_paths:
         if p.exists():
             try:
-                with p.open(encoding="utf-8") as f:
-                    data = json.load(f)
-                    logger.info(f"Loaded catalog successfully from: {p}")
-                    if isinstance(data, dict):
-                        return data
+                data = _read_catalog(str(p), p.stat().st_mtime_ns)
+                if isinstance(data, dict):
+                    return data
             except Exception as e:
                 logger.error(f"Found catalog at {p} but failed to read: {e}")
                 
@@ -83,6 +91,40 @@ def load_raw_catalog():
         "vanities": [],
         "bathtubs": []
     }
+
+
+def make_cache_key(prefix, values, catalog):
+    # Changing the catalog or starting product bundle must invalidate old results.
+    payload = json.dumps([values, catalog, os.getenv("GEMINI_MODEL", DEFAULT_MODEL)], sort_keys=True, separators=(',', ':'))
+    return prefix + ':' + hashlib.sha256(payload.encode()).hexdigest()
+
+
+def get_cached_response(key):
+    global redis_client
+    cached = response_cache.get(key)
+    if cached is not None:
+        return cached
+    if redis_client is not None:
+        try:
+            value = redis_client.get(key)
+            if value:
+                cached = json.loads(value)
+                response_cache.set(key, cached)
+                return cached
+        except Exception:
+            logger.warning("Redis unavailable; continuing with local response cache.")
+            redis_client = None
+    return None
+
+
+def cache_response(key, result):
+    global redis_client
+    response_cache.set(key, result)
+    if redis_client is not None:
+        try:
+            redis_client.setex(key, 3600, json.dumps(result))
+        except Exception:
+            redis_client = None
 
 
 def constraint_filter(width_ft, depth_ft, budget, style):
@@ -172,7 +214,8 @@ def hydrate_bundle_items(bundle_dict, catalog):
     }
 
     for category_singular, product_id in (bundle_dict or {}).items():
-        cat_key = f"{category_singular}s" if not category_singular.endswith("s") else category_singular
+        cat_key = {"faucet": "faucets", "toilet": "toilets", "shower": "showers",
+                   "vanity": "vanities", "bathtub": "bathtubs"}.get(category_singular, category_singular)
         matched = next((p for p in catalog.get(cat_key, []) if p.get("id") == product_id), None)
 
         if matched:
@@ -229,23 +272,25 @@ def recommend():
     start_time = time.time()
     data = request.get_json() or {}
 
-    width_ft = float(data.get("width_ft", data.get("width", 8)))
-    depth_ft = float(data.get("depth_ft", data.get("depth", 6)))
-    budget = float(data.get("budget", 3000))
+    try:
+        width_ft = float(data.get("width_ft", data.get("width", 8)))
+        depth_ft = float(data.get("depth_ft", data.get("depth", 6)))
+        budget = float(data.get("budget", 3000))
+        if not all(math.isfinite(value) and value > 0 for value in (width_ft, depth_ft, budget)):
+            raise ValueError()
+    except (TypeError, ValueError):
+        return jsonify({"error": "Room dimensions and budget must be positive numbers."}), 400
     style = data.get("style", "Minimalist Modern")
     eco_mode = bool(data.get("eco_mode", False))
 
     logger.info(f"Incoming baseline recommendation request: {width_ft}x{depth_ft}ft, Budget: ${budget}, Style: '{style}', EcoMode: {eco_mode}")
 
-    cache_key = f"rec:{width_ft}:{depth_ft}:{budget}:{style.lower()}:eco_{eco_mode}"
-    if redis_client:
-        try:
-            cached_res = redis_client.get(cache_key)
-            if cached_res:
-                logger.info("Cache hit! Serving recommendation instantly from Redis (0 tokens used).")
-                return jsonify(json.loads(cached_res))
-        except Exception as ce:
-            logger.warning(f"Redis get error: {ce}")
+    catalog = load_raw_catalog()
+    cache_key = make_cache_key("rec", [width_ft, depth_ft, budget, style, eco_mode], catalog)
+    cached_res = get_cached_response(cache_key)
+    if cached_res is not None:
+        logger.info("Serving cached recommendation.")
+        return jsonify(cached_res)
 
     candidate_budget_ceiling = budget * 1.5
     filtered_candidates = constraint_filter(width_ft, depth_ft, candidate_budget_ceiling, style)
@@ -257,8 +302,6 @@ def recommend():
         elapsed = round(time.time() - start_time, 2)
         logger.error(f"Recommendation failed after {elapsed}s: {result['error']}")
         return jsonify(result), 400
-
-    catalog = load_raw_catalog()
 
     if "tiers" in result:
         for tier_key, tier_data in result["tiers"].items():
@@ -278,11 +321,7 @@ def recommend():
         if total_calc > 0:
             result["total_price"] = total_calc
 
-    if redis_client:
-        try:
-            redis_client.setex(cache_key, 86400, json.dumps(result))
-        except Exception as se:
-            logger.warning(f"Redis set error: {se}")
+    cache_response(cache_key, result)
 
     elapsed = round(time.time() - start_time, 2)
     logger.info(f"Recommendation finished in {elapsed}s. Primary valuation: ${result.get('total_price')}")
@@ -314,17 +353,11 @@ def refine_design():
 
     logger.info(f"Copilot refinement directive received: '{directive}'")
 
-    directive_cache_key = f"refine:{width_ft}:{depth_ft}:{budget}:{style.lower()}:{directive.lower()}"
-    if redis_client:
-        try:
-            cached_refine = redis_client.get(directive_cache_key)
-            if cached_refine:
-                logger.info("Cache hit! Serving refinement instantly from Redis (0 tokens used).")
-                return jsonify(json.loads(cached_refine))
-        except Exception as ce:
-            logger.warning(f"Redis refinement get error: {ce}")
-
     raw_catalog = load_raw_catalog()
+    directive_cache_key = make_cache_key("refine", [width_ft, depth_ft, budget, style, directive, current_bundle], raw_catalog)
+    cached_refine = get_cached_response(directive_cache_key)
+    if cached_refine is not None:
+        return jsonify(cached_refine)
     directive_lower = directive.lower()
 
     is_lowest = any(k in directive_lower for k in ["lowest", "cheapest", "minimum", "budget", "economy", "affordable"])
@@ -369,35 +402,23 @@ RULES:
 """
 
     try:
-        import google.generativeai as genai
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY not configured.")
-        genai.configure(api_key=api_key)
-        
-        model = genai.GenerativeModel("gemini-3.8-flash")
-        response = model.generate_content(
-            refinement_prompt,
-            generation_config={"response_mime_type": "application/json"}
-        )
-        custom_tier = json.loads(response.text)
+        custom_tier = generate_json(refinement_prompt + '\nKeep the explanation under 60 words.')
+        for singular in ("faucet", "toilet", "shower", "vanity", "bathtub"):
+            if custom_tier.get("bundle", {}).get(singular) not in {item['id'] for item in filtered_candidates.get(singular + 's', [])}:
+                raise ValueError("Revision returned an unavailable product")
 
         detailed, total_calc = hydrate_bundle_items(custom_tier.get("bundle", {}), raw_catalog)
         custom_tier["detailed_bundle"] = detailed
         custom_tier["total_price"] = total_calc
 
-        if redis_client:
-            try:
-                redis_client.setex(directive_cache_key, 86400, json.dumps(custom_tier))
-            except Exception as se:
-                logger.warning(f"Redis refinement set error: {se}")
+        cache_response(directive_cache_key, custom_tier)
 
         elapsed = round(time.time() - start_time, 2)
         logger.info(f"Copilot refinement completed via Gemini in {elapsed}s: ${custom_tier['total_price']}")
         return jsonify(custom_tier)
 
     except Exception as e:
-        logger.error(f"Gemini refinement failed or threw exception: {e}. Executing algorithmic directive fallback.")
+        logger.warning("AI refinement unavailable (%s); using local selection.", type(e).__name__)
 
         fallback_bundle = {}
         for cat in ["faucet", "toilet", "shower", "vanity", "bathtub"]:
@@ -416,6 +437,7 @@ RULES:
             "total_price": total_calc,
             "explanation": f"Adaptive specification synthesized for directive: \"{directive}\"."
         }
+        cache_response(directive_cache_key, fallback_tier)
         return jsonify(fallback_tier)
 
 

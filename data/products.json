@@ -425,33 +425,33 @@
       ]
     },
     {
-      "id": "K-23219-BL",
-      "name": "HydroRail-S Architectural Shower Column",
-      "price": 450,
-      "style": "Industrial Chic",
+      "id": "K-22170-CP",
+      "name": "Purist Three-Function Multi-Flow Showerhead",
+      "price": 140,
+      "style": "Minimalist Modern",
       "finish": "Matte Black",
       "flow_rate": "2.5 GPM",
-      "footprint_in": { "width": 3, "depth": 18 },
+      "footprint_in": { "width": 5.5, "depth": 5.5 },
       "image_url": "/images/shower9.png",
       "features": [
-        "Exposed pipe architectural shower column design",
-        "Integrated base diverter toggles between overhead and handshower",
-        "Converts standard showerhead setup without wall demolition"
+        "Three distinct spray functions: full coverage, pulsating massage, silk spray",
+        "Katalyst air-induction technology for fuller, warmer water drops",
+        "MasterClean sprayface nozzles resist mineral buildup for easy maintenance"
       ]
     },
     {
-      "id": "K-26346-NA",
-      "name": "Anthem Smart Digital Shower Controller",
-      "price": 1200,
-      "style": "Minimalist Modern",
-      "finish": "Black Glass Panel",
-      "flow_rate": "Multi-Outlet Control",
-      "footprint_in": { "width": 7.5, "depth": 5 },
+      "id": "34050IN-CP",
+      "name": "APT Square Single-Function Rain Showerhead",
+      "price": 40,
+      "style": "Industrial Chic",
+      "finish": "Polished Chrome",
+      "flow_rate": "2.5 GPM",
+      "footprint_in": { "width": 6.0, "depth": 6.0 },
       "image_url": "/images/shower10.png",
       "features": [
-        "Digital touchscreen control for up to 6 shower outlets",
-        "Independent temperature and flow control for every zone",
-        "Pre-programmed hydrotherapy spray routines & mobile app sync"
+        "Architectural square silhouette with 102 high-impact spray nozzles",
+        "Full-coverage soothing spray pattern built for longevity",
+        "Durable brass construction with corrosion-resistant finish"
       ]
     }
   ],

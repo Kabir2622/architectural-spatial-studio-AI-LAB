@@ -6,6 +6,10 @@ Generates distinct bundles with variance across pricing tiers and eco-efficiency
 import os
 import json
 import logging
+import re
+from functools import lru_cache
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
+from threading import BoundedSemaphore
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
@@ -59,23 +63,65 @@ Output strictly valid JSON matching this schema:
 }
 """
 
+# Keep network retries/latency from blocking the studio indefinitely. The
+# semaphore also prevents expired calls from piling up during an outage.
+_generation_pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix="kohler-ai")
+_generation_slots = BoundedSemaphore(2)
+GENERATION_TIMEOUT = 8
+DEFAULT_MODEL = "gemini-3.5-flash-lite"
+
+
+def compact_candidates(candidates):
+    return {category: [{key: item.get(key) for key in
+            ("id", "name", "price", "style", "finish", "flow_rate")}
+            for item in items] for category, items in candidates.items()}
+
+@lru_cache(maxsize=1)
 def get_client() -> genai.Client:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         raise ValueError("GEMINI_API_KEY missing in .env")
-    return genai.Client(api_key=api_key)
+    return genai.Client(api_key=api_key, http_options=types.HttpOptions(
+        # Gemini requires >=10s transport deadline. The request's separate
+        # eight-second application deadline still returns a local bundle promptly.
+        timeout=15000,
+        retry_options=types.HttpRetryOptions(attempts=1)))
+
+
+def generate_json(prompt, instruction=None):
+    if not _generation_slots.acquire(blocking=False):
+        raise TimeoutError("Recommendation service is busy; using local selection")
+
+    def generate():
+        try:
+            model = os.getenv("GEMINI_MODEL", DEFAULT_MODEL)
+            response = get_client().models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(system_instruction=instruction,
+                    response_mime_type="application/json", max_output_tokens=2400,
+                    automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                    thinking_config=types.ThinkingConfig(thinking_level="low" if model.startswith(("gemini-3.7", "gemini-3.8")) else "minimal") if model.startswith("gemini-3") else None,
+                    temperature=0.2))
+            return json.loads(response.text)
+        finally:
+            _generation_slots.release()
+
+    future = _generation_pool.submit(generate)
+    return future.result(timeout=GENERATION_TIMEOUT)
 
 
 def build_single_bundle(candidates: dict, style: str, target_budget: float, tier_label: str) -> dict:
-    singular_map = {"faucets": "faucet", "toilets": "toilet", "showers": "shower", "vanities": "vanity"}
+    singular_map = {"faucets": "faucet", "toilets": "toilet", "showers": "shower", "vanities": "vanity", "bathtubs": "bathtub"}
     bundle = {}
     total = 0
 
     allocations = {
-        "vanities": target_budget * 0.45,
-        "showers": target_budget * 0.25,
-        "toilets": target_budget * 0.20,
-        "faucets": target_budget * 0.10
+        "vanities": target_budget * 0.30,
+        "showers": target_budget * 0.15,
+        "toilets": target_budget * 0.15,
+        "faucets": target_budget * 0.10,
+        "bathtubs": target_budget * 0.30
     }
 
     for cat_key, cat_target in allocations.items():
@@ -85,9 +131,13 @@ def build_single_bundle(candidates: dict, style: str, target_budget: float, tier
 
         if tier_label == "eco":
             # Explicitly favor high-efficiency / low-flow products for the Eco tier to ensure fixture variety
-            efficient_pool = [i for i in items if "1.2" in str(i.get("flow_rate", "")) or "watersense" in str(i.get("features", [])).lower() or "low-flow" in str(i.get("flow_rate", "")).lower()]
-            pool = efficient_pool if efficient_pool else items
-            chosen = pool[len(pool) % len(pool)] if len(pool) > 1 else pool[0]
+            def efficiency(item):
+                rate = str(item.get("flow_rate", ""))
+                numbers = re.findall(r"\d+(?:\.\d+)?", rate)
+                # Avoid interpreting tub capacity or cabinetry as consumption.
+                flow = sum(map(float, numbers)) / len(numbers) if numbers and re.search(r"GP[MF]", rate, re.I) else float("inf")
+                return (flow, abs(item.get("price", 0) - cat_target))
+            chosen = min(items, key=efficiency)
         elif tier_label == "essential":
             chosen = min(items, key=lambda x: x.get("price", 0))
         elif tier_label == "signature":
@@ -98,7 +148,7 @@ def build_single_bundle(candidates: dict, style: str, target_budget: float, tier
         bundle[singular_map[cat_key]] = chosen["id"]
         total += chosen.get("price", 0)
 
-    note = "Eco-optimized suite featuring high-efficiency aerators and WaterSense certification (-26% flow reduction)." if tier_label == "eco" else f"{tier_label.title()} collection harmonized in {style} aesthetic."
+    note = "Selected for lower published flow rates where available; compare product specifications for estimated savings." if tier_label == "eco" else f"{tier_label.title()} collection harmonized in {style} aesthetic."
     return {
         "bundle": bundle,
         "total_price": total,
@@ -136,35 +186,36 @@ def get_llm_recommendation(filtered_candidates: dict, style: str, budget: float 
         return {"error": f"No products fit dimensions/budget in: {', '.join(empty)}"}
 
     try:
-        client = get_client()
         eco_instruction = ""
         system_instruction_text = SYSTEM_PROMPT
 
         if eco_mode:
             eco_instruction = "\n\nCRITICAL ECO-EFFICIENCY CONSTRAINT: Prioritize WaterSense certified fixtures, high-efficiency low-flow aerators, and dual-flush options within the target budget to maximize water savings (-20% to -30% flow rates)."
 
-        msg = f"Aesthetic: {style}\nTarget Budget: ${budget}\nEco-Mode Active: {eco_mode}{eco_instruction}\nCandidates:\n{json.dumps(filtered_candidates, indent=2)}"
-
-        res = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=msg,
-            config=types.GenerateContentConfig(
-                system_instruction=system_instruction_text,
-                response_mime_type="application/json"
-            )
-        )
-        data = json.loads(res.text.strip())
+        msg = f"Aesthetic: {style}\nTarget Budget: ${budget}\nEco-Mode Active: {eco_mode}{eco_instruction}\nCandidates:\n{json.dumps(compact_candidates(filtered_candidates), separators=(',', ':'))}"
+        data = generate_json(msg, system_instruction_text +
+            '\nInclude bathtub in each bundle when bathtubs are available. Use only supplied IDs. Keep each explanation under 45 words.')
         
         tiers = data.get("tiers", {})
         if (
             "essential" in tiers and "curated" in tiers and "signature" in tiers and "eco" in tiers
             and tiers["essential"]["total_price"] != tiers["signature"]["total_price"]
         ):
+            categories = {"faucet": "faucets", "toilet": "toilets", "shower": "showers", "vanity": "vanities", "bathtub": "bathtubs"}
+            for tier in tiers.values():
+                bundle = tier.get("bundle", {})
+                for singular, plural in categories.items():
+                    available = filtered_candidates.get(plural, [])
+                    if available and bundle.get(singular) not in {item["id"] for item in available}:
+                        raise ValueError("Model returned an unavailable product")
+            data["recommendation_source"] = "ai"
             return data
 
         logger.warning("Gemini produced equal tier prices or missed eco tier. Falling back to deterministic ladder.")
         return get_fallback_recommendation(filtered_candidates, style, budget)
 
     except Exception as e:
-        logger.error(f"Gemini API error ({e}). Using deterministic 4-tier fallback.")
-        return get_fallback_recommendation(filtered_candidates, style, budget)
+        logger.warning("AI recommendation unavailable (%s). Using local 4-tier selection.", type(e).__name__)
+        result = get_fallback_recommendation(filtered_candidates, style, budget)
+        result["recommendation_source"] = "local"
+        return result

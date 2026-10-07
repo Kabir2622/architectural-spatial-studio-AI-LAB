@@ -24,7 +24,7 @@ export default function ArchitecturalMetrics({ width = 16, depth = 14, currentTi
   const toiletGPF = parseRate(detailed.toilet?.flow_rate, 1.28);
   const faucetGPM = parseRate(detailed.faucet?.flow_rate, 1.2);
 
-  // Baseline standard: 2.5 GPM shower, 1.6 GPF toilet, 2.2 GPM faucet
+  // Baseline standard: calculateEcoMetrics GPM shower, 1.6 GPF toilet, 2.2 GPM faucet
   // 2 occupants: 8-min shower/day, 5 flushes/day, 4-min faucet use/day
   const showerSavingsPerYear = Math.max(0, Math.round(2 * 8 * (2.5 - showerGPM) * 365));
   const toiletSavingsPerYear = Math.max(0, Math.round(2 * 5 * (1.6 - toiletGPF) * 365));
@@ -39,7 +39,6 @@ export default function ArchitecturalMetrics({ width = 16, depth = 14, currentTi
       style={{
         marginTop: '1.25rem',
         background: 'rgba(11, 20, 32, 0.75)',
-        backdropFilter: 'blur(14px)',
         border: '1px solid rgba(52, 211, 153, 0.25)',
         borderRadius: '12px',
         padding: '1.25rem'

@@ -1,11 +1,11 @@
 import ArchitecturalMetrics from './ArchitecturalMetrics';
-import React, { useState, useEffect, useRef } from 'react';
-import Lenis from 'lenis';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
 import Bathroom3D from './Bathroom3D';
 import './App.css';
 import { exportDesignPackagePDF } from './generateBOM';
 import IntroSplash from './IntroSplash';
+import { prepareSavedLayout } from './restoreLayout';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -73,9 +73,23 @@ export default function App() {
   const [error, setError] = useState(null);
   const [activeSpecProduct, setActiveSpecProduct] = useState(null);
   const [activeTier, setActiveTier] = useState('curated');
+  const [layoutToRestore, setLayoutToRestore] = useState(null);
+
+  const handleRestoreLayout = value => {
+    const { snapshot, tier } = prepareSavedLayout(value);
+    setWidth(snapshot.width);
+    setDepth(snapshot.depth);
+    if (Number.isFinite(snapshot.budget)) setBudget(snapshot.budget);
+    if (STYLES.includes(snapshot.style)) setStyle(snapshot.style);
+    if (typeof snapshot.ecoMode === 'boolean') setEcoMode(snapshot.ecoMode);
+    setResult(previous => ({ ...previous, tiers: { ...previous?.tiers, saved: tier } }));
+    setActiveTier('saved');
+    setLayoutToRestore(snapshot);
+    setActiveSpecProduct(null);
+    setError(null);
+  };
 
   const [copilotDirective, setCopilotDirective] = useState('');
-  const [appliedDirective, setAppliedDirective] = useState('');
   const [isRefining, setIsRefining] = useState(false);
 
   const [catalog, setCatalog] = useState({ faucets: [], showers: [], toilets: [], vanities: [], bathtubs: [] });
@@ -104,37 +118,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 0.9
-    });
-
-    const updateLenis = (time) => {
-      lenis.raf(time * 1000);
-    };
-
-    gsap.ticker.add(updateLenis);
-    gsap.ticker.lagSmoothing(0);
-
+    if (showSplash) return;
     const cursor = cursorRef.current;
-    const xTo = cursor ? gsap.quickTo(cursor, "x", { duration: 0.15, ease: "power3" }) : () => {};
-    const yTo = cursor ? gsap.quickTo(cursor, "y", { duration: 0.15, ease: "power3" }) : () => {};
-
-    const bgX = bgImageRef.current ? gsap.quickTo(bgImageRef.current, "x", { duration: 0.8, ease: "power2.out" }) : null;
-    const bgY = bgImageRef.current ? gsap.quickTo(bgImageRef.current, "y", { duration: 0.8, ease: "power2.out" }) : null;
-
+    let cursorFrame = 0, pointerX = 0, pointerY = 0;
     const handleMouseMove = (e) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
-
-      if (bgX && bgY) {
-        const xOffset = ((e.clientX / window.innerWidth) - 0.5) * -12;
-        const yOffset = ((e.clientY / window.innerHeight) - 0.5) * -12;
-        bgX(xOffset);
-        bgY(yOffset);
-      }
+      if (!cursor || !window.matchMedia('(pointer: fine)').matches) return;
+      pointerX = e.clientX; pointerY = e.clientY;
+      if (!cursorFrame) cursorFrame = requestAnimationFrame(() => {
+        cursor.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+        cursorFrame = 0;
+      });
     };
 
     const handleMouseOver = (e) => {
@@ -158,21 +151,21 @@ export default function App() {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      gsap.ticker.remove(updateLenis);
-      lenis.destroy();
+      cancelAnimationFrame(cursorFrame);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [showSplash]);
 
   useEffect(() => {
     if (result && resultsContainerRef.current) {
-      gsap.fromTo(
-        ".stagger-card",
+      const animation = gsap.fromTo(
+        resultsContainerRef.current.querySelectorAll('.stagger-card'),
         { y: 14, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "power3.out" }
       );
+      return () => animation.kill();
     }
   }, [result, activeTier]);
 
@@ -180,7 +173,6 @@ export default function App() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setResult(null);
     setActiveSpecProduct(null);
 
     const payload = {
@@ -195,7 +187,8 @@ export default function App() {
       const response = await fetch(`${API_URL}/api/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(15000)
       });
 
       const text = await response.text();
@@ -209,7 +202,7 @@ export default function App() {
         setActiveTier(ecoMode ? 'eco' : 'curated');
       }
     } catch (err) {
-      setError(err.message);
+      setError(err.name === 'TimeoutError' ? 'The recommendation server took too long to respond. Please try again.' : err.message);
     } finally {
       setLoading(false);
     }
@@ -235,7 +228,8 @@ export default function App() {
       const response = await fetch(`${API_URL}/api/refine`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(15000)
       });
 
       const text = await response.text();
@@ -244,8 +238,6 @@ export default function App() {
       if (!response.ok || refinedTier.error) {
         throw new Error(refinedTier.error || 'Failed to adapt specification');
       }
-
-      setAppliedDirective(currentDirectiveText);
 
       setResult((prev) => ({
         ...prev,
@@ -283,6 +275,17 @@ export default function App() {
         explanation: result?.explanation || '',
         title: 'Curated Suite'
       });
+
+  // Follow the active suite/tier and fill omitted dimensions from the catalog.
+  const studioProducts = useMemo(() => Object.fromEntries(
+    Object.entries({ bathtubs: 'bathtub', vanities: 'vanity', showers: 'shower', toilets: 'toilet' }).map(([category, singular]) => {
+      const id = currentTierData.bundle?.[singular] ?? currentTierData.bundle?.[category];
+      const detailed = currentTierData.detailed_bundle?.[singular] ?? currentTierData.detailed_bundle?.[category];
+      const product = (catalog[category] || []).find(item => item.id === id);
+      return [category, { ...product, ...detailed,
+        footprint_in: detailed?.footprint_in ?? product?.footprint_in }];
+    })
+  ), [catalog, currentTierData.bundle, currentTierData.detailed_bundle]);
 
   const handleExportPDF = async () => {
     if (!result) return;
@@ -325,7 +328,7 @@ export default function App() {
             <div className="luxury-backdrop-overlay" />
           </div>
 
-          <nav style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--hairline)', background: 'rgba(7, 7, 7, 0.94)', backdropFilter: 'blur(10px)', padding: '0.9rem 2.5rem' }}>
+          <nav style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--hairline)', background: 'rgba(7, 7, 7, 0.94)', padding: '0.9rem 2.5rem' }}>
             <div style={{ maxWidth: '1480px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                 <span style={{ fontSize: '0.92rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--text-main)' }}>
@@ -532,13 +535,14 @@ export default function App() {
                     
                     {/* --- Tier Selection Bar with Eco & Compare Button --- */}
                     <div>
-                      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${result.tiers.copilot ? 5 : 4}, 1fr)`, gap: '1px', background: 'var(--hairline)', border: '1px solid var(--hairline)' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${4 + (result.tiers.copilot ? 1 : 0) + (result.tiers.saved ? 1 : 0)}, 1fr)`, gap: '1px', background: 'var(--hairline)', border: '1px solid var(--hairline)' }}>
                         {[
                           { id: 'essential', label: 'ESSENTIAL', price: result.tiers.essential?.total_price },
                           { id: 'curated', label: 'CURATED', price: result.tiers.curated?.total_price },
                           { id: 'signature', label: 'SIGNATURE', price: result.tiers.signature?.total_price },
                           { id: 'eco', label: '🌱 ECO', price: result.tiers.eco?.total_price || ecoDefaultPrice },
-                          ...(result.tiers.copilot ? [{ id: 'copilot', label: 'COPILOT', price: result.tiers.copilot?.total_price }] : [])
+                          ...(result.tiers.copilot ? [{ id: 'copilot', label: 'COPILOT', price: result.tiers.copilot?.total_price }] : []),
+                          ...(result.tiers.saved ? [{ id: 'saved', label: 'SAVED', price: result.tiers.saved.total_price }] : [])
                         ].map((t) => {
                           const isSelected = activeTier === t.id;
                           return (
@@ -738,7 +742,16 @@ export default function App() {
                     </div>
                   </div>
                   
-                  <Bathroom3D ref={bathroom3DRef} width={Number(width)} depth={Number(depth)} />
+                  <Bathroom3D ref={bathroom3DRef} width={Number(width)} depth={Number(depth)} products={studioProducts}
+                    restoreRequest={layoutToRestore} onRestoreLayout={handleRestoreLayout}
+                    comparisonContext={{ catalog, title: currentTierData.title, price: result ? currentTierData.total_price : null,
+                      busy: loading || isRefining, budget: Number(budget), style, ecoMode,
+                      products: Object.fromEntries(Object.entries({ faucet: 'faucets', shower: 'showers', toilet: 'toilets', vanity: 'vanities', bathtub: 'bathtubs' }).map(([singular, plural]) => {
+                        const id = currentTierData.bundle?.[singular] ?? currentTierData.bundle?.[plural];
+                        const catalogProduct = (catalog[plural] || []).find(product => product.id === id);
+                        const detailed = currentTierData.detailed_bundle?.[singular] ?? currentTierData.detailed_bundle?.[plural];
+                        return [singular, { ...catalogProduct, ...detailed, id: detailed?.id ?? id ?? catalogProduct?.id }];
+                      })) }} />
                 </div>
 
                 {result && (

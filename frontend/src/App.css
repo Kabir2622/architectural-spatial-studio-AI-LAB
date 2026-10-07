@@ -66,6 +66,9 @@ h1, h2, h3, .font-serif {
   pointer-events: none;
   z-index: 10;
   opacity: 0.025;
+  contain: strict;
+  transform: translateZ(0);
+  background-size: 200px 200px;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -87,6 +90,12 @@ h1, h2, h3, .font-serif {
   left: -5vw;
   filter: brightness(0.14) contrast(1.2) grayscale(60%);
   transform: translateZ(0);
+  transition: none;
+}
+
+.custom-cursor { mix-blend-mode: normal; will-change: transform; }
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .custom-cursor { display: none; }
 }
 
 .luxury-backdrop-overlay {
